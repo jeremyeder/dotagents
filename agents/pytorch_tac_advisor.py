@@ -2,21 +2,18 @@
 """
 PyTorch TAC Voting Advisor Agent
 
-Strategic advisor for Jeremy Eder's PyTorch Technical Advisory Committee voting decisions.
-Provides research-backed decision support for PyTorch ecosystem votes with executive summaries
-considering competition, portfolio overlap, and project health.
+Strategic advisor for Jeremy Eder's PyTorch Technical Advisory Committee voting.
+Provides research-backed decision support for PyTorch ecosystem votes with
+executive summaries considering competition, portfolio overlap, and project health.
 
 Author: Jeremy Eder, Distinguished Engineer, Red Hat
 Role: PyTorch TAC Member (IBM/Red Hat representative)
 """
 
 import asyncio
-import json
-import logging
-import re
 import sys
-from dataclasses import asdict, dataclass
-from datetime import datetime, timedelta
+from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 from urllib.parse import urlparse

@@ -1,62 +1,79 @@
-# PyTorch TAC Voting Advisor
+# dotagents
 
-Strategic advisor agent for Jeremy Eder's PyTorch Technical Advisory Committee voting decisions.
+A collection of specialized strategic agents for technical decision support and competitive analysis.
 
 ## Overview
 
-This agent provides research-backed decision support for PyTorch ecosystem votes, generating executive summaries that consider:
+This repository contains AI agents designed to provide research-backed decision support for complex strategic scenarios. Each agent specializes in specific domains, offering automated analysis, competitive intelligence, and executive-level recommendations.
 
-- **Competition analysis** - Market position and competitive landscape
-- **Portfolio overlap** - Alignment with Red Hat/IBM AI portfolio
-- **Project health** - GitHub metrics and sustainability indicators
-- **Strategic alignment** - Red Hat and IBM strategic fit
-- **Risk assessment** - Technical and business risks
+### Core Capabilities
 
-## Features
+- **Automated Research** - Systematic analysis of projects, markets, and competitive landscapes
+- **Strategic Intelligence** - Executive summaries with actionable recommendations
+- **Multi-Domain Support** - Specialized agents for different decision contexts
+- **Integration Ready** - Modular architecture for easy deployment and customization
 
-- **Automated GitHub Analysis** - Repository health scoring based on activity, contributors, and maintenance indicators
-- **Competition Mapping** - Identifies competitive landscape and market positioning
-- **Portfolio Impact Assessment** - Analyzes overlap with Red Hat OpenShift AI and IBM Watson ecosystems
-- **Strategic Recommendations** - APPROVE/REJECT/ABSTAIN with confidence levels
-- **Executive Summaries** - 1-page markdown reports optimized for TAC voting decisions
-- **IBM Research Integration** - Consultation notes for Raghu Ganti collaboration
+## Agent Portfolio
 
-## Usage
+| Agent | Status | Analysis Type | Data Sources | Output Format | Decision Support | Time Sensitivity |
+|-------|--------|---------------|--------------|---------------|------------------|------------------|
+| PyTorch TAC Voting Advisor | ✅ Current | Governance | GitHub API, Project docs | Console + Markdown | APPROVE/REJECT/ABSTAIN | 7-day windows |
+| Competitive Intelligence Analyzer | 🔄 Planned | Market Analysis | Web scraping, Patents | Markdown + JSON | Threat Assessment | Weekly |
+| Project Health Evaluator | 🔄 Planned | Technical Risk | GitHub API, Dependencies | Console + Markdown | Health Score + Risks | On-demand |
+| Technology Portfolio Advisor | ⏳ Future | Strategic Fit | Internal APIs, Market data | Executive Summary | Portfolio Alignment | Quarterly |
 
-### Basic Analysis
-```bash
-python agents/pytorch_tac_advisor.py "Project Name" "https://github.com/owner/repo"
-```
+## Architecture
 
-### With Description and Context
-```bash
-python agents/pytorch_tac_advisor.py "ML Inference Engine" "https://github.com/example/engine" \
-  --description "Fast PyTorch model serving for production" \
-  --context "Vote deadline: 2025-01-15"
-```
-
-### With GitHub Token (for higher API limits)
-```bash
-export GITHUB_TOKEN="your_github_token"
-python agents/pytorch_tac_advisor.py "Project Name" "https://github.com/owner/repo"
-```
+### Agent Framework
+- **Modular Design** - Each agent operates independently with shared utilities
+- **Extensible Analysis** - Common patterns for data gathering, analysis, and reporting
+- **Standardized Output** - Consistent executive summary format across agents
+- **Integration Ready** - API endpoints and CLI interfaces for all agents
 
 ## Installation
 
 ```bash
+git clone https://github.com/jeremyeder/dotagents.git
+cd dotagents
 pip install -r requirements.txt
 ```
 
-## Output
+## Agent Installation
 
-The agent generates:
+These agents are designed to work with [Claude Code](https://claude.ai/code) and are not executed as standalone scripts.
+
+### Installation Process
+
+1. **Copy agents to Claude Code directory:**
+   ```bash
+   cp -r prompts/* ~/.claude/agents/
+   ```
+
+2. **Agent discovery:** Claude Code automatically discovers agents in the `~/.claude/agents/` directory
+
+3. **Activation:** Agents become available through Claude Code's interface for strategic analysis tasks
+
+### Requirements
+
+- Active Claude Code installation
+- GitHub token (optional, for enhanced API rate limits):
+  ```bash
+  export GITHUB_TOKEN="your_github_token"
+  ```
+
+
+## PyTorch TAC Voting Advisor
+
+### Output
+
+The PyTorch TAC agent generates:
 
 1. **Console Display** - Rich formatted analysis with recommendation tables
 2. **Markdown Report** - Executive summary saved to `./analysis/` directory
-3. **Strategic Assessments** - Red Hat and IBM alignment analysis
-4. **Consultation Notes** - Discussion points for Raghu Ganti (IBM Research)
+3. **Strategic Assessments** - Organizational alignment analysis
+4. **Risk Analysis** - Technical and business risk evaluation
 
-## Example Output Structure
+### Example Output Structure
 
 ```markdown
 # PyTorch TAC Voting Recommendation: Project Name
@@ -73,17 +90,18 @@ The agent generates:
 [Technical and business risk assessment]
 
 ## Strategic Context
-[Red Hat/IBM alignment and ecosystem impact]
+[Organizational alignment and ecosystem impact]
 ```
 
-## Jeremy's TAC Context
+### Context
 
-- **Role**: PyTorch TAC Member representing IBM/Red Hat
-- **Collaboration**: Works with Raghu Ganti (IBM Research) who holds the official voting seat
-- **Focus Areas**: OpenShift AI integration, enterprise PyTorch adoption, ecosystem health
-- **Decision Timeline**: 7-day voting windows require rapid analysis and consultation
+The PyTorch TAC agent is designed for governance scenarios where:
+- **Rapid Analysis**: 7-day voting windows require quick, thorough evaluation
+- **Strategic Alignment**: Decisions must consider organizational portfolio impact
+- **Technical Depth**: GitHub metrics and ecosystem health assessment needed
+- **Executive Summary**: Clear recommendations for committee-level decision making
 
-## Architecture
+### PyTorch TAC Agent Architecture
 
 - **GitHubAnalyzer** - Repository health metrics and API integration
 - **PyTorchEcosystemAnalyzer** - Competition and portfolio analysis
@@ -91,7 +109,31 @@ The agent generates:
 - **Rich Console Output** - Formatted display with tables and panels
 - **Markdown Export** - Executive summary generation
 
-## Configuration
+## Project Structure
+
+```
+dotagents/
+├── agents/                     # Agent implementations
+│   └── pytorch_tac_advisor.py  # PyTorch TAC voting agent
+├── requirements.txt            # Dependencies
+├── prompts/                    # Agent specifications
+│   └── pytorch/                # PyTorch TAC agent prompts
+│       ├── pytorch_tac_voter.md
+│       └── vote.png
+├── analysis/                   # Generated reports
+└── README.md                   # This file
+```
+
+## Development
+
+### Adding New Agents
+
+1. Create agent-specific directory in `prompts/`
+2. Implement agent class following the framework patterns
+3. Add CLI interface and documentation
+4. Update this README with agent details
+
+### Environment Setup
 
 Set `GITHUB_TOKEN` environment variable for enhanced API access:
 ```bash
@@ -99,3 +141,4 @@ export GITHUB_TOKEN="ghp_your_token_here"
 ```
 
 This increases GitHub API rate limits from 60 to 5000 requests per hour.
+
