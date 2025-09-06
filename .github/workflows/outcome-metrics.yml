@@ -1,0 +1,70 @@
+name: Weekly Outcome Metrics
+
+on:
+  schedule:
+    - cron: '0 9 * * MON'  # Every Monday at 9 AM
+  workflow_dispatch:
+
+jobs:
+  generate-metrics:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Generate Weekly Metrics
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const { owner, repo } = context.repo;
+          const date = new Date().toISOString().split('T')[0];
+          
+          // Get all issues with outcome, epic, story labels
+          const { data: issues } = await github.rest.issues.listForRepo({
+            owner,
+            repo,
+            state: 'all',
+            labels: 'outcome,epic,story',
+            per_page: 100
+          });
+          
+          const outcomes = issues.filter(i => i.labels.some(l => l.name === 'outcome'));
+          const epics = issues.filter(i => i.labels.some(l => l.name === 'epic'));
+          const stories = issues.filter(i => i.labels.some(l => l.name === 'story'));
+          
+          const openOutcomes = outcomes.filter(i => i.state === 'open').length;
+          const openEpics = epics.filter(i => i.state === 'open').length;
+          const openStories = stories.filter(i => i.state === 'open').length;
+          
+          const completedOutcomes = outcomes.filter(i => i.state === 'closed').length;
+          const completedEpics = epics.filter(i => i.state === 'closed').length;
+          const completedStories = stories.filter(i => i.state === 'closed').length;
+          
+          const metrics = `# Weekly Outcome Metrics - ${date}
+          
+          ## Overview
+          - **Outcomes**: ${openOutcomes} active, ${completedOutcomes} completed
+          - **Epics**: ${openEpics} active, ${completedEpics} completed  
+          - **Stories**: ${openStories} active, ${completedStories} completed
+          
+          ## Progress Summary
+          Total items in pipeline: ${openOutcomes + openEpics + openStories}
+          Total items completed: ${completedOutcomes + completedEpics + completedStories}
+          
+          ## Strategic Focus Areas
+          ${outcomes.slice(0, 3).map(o => `- **${o.title}** (${o.state})`).join('\n')}
+          `;
+          
+          // Create or update metrics issue
+          const title = `Weekly Metrics - ${date}`;
+          
+          try {
+            await github.rest.issues.create({
+              owner,
+              repo,
+              title,
+              body: metrics,
+              labels: ['metrics', 'weekly-report']
+            });
+          } catch (error) {
+            console.log('Metrics generated:', metrics);
+          }
