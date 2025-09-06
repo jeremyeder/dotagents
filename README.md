@@ -113,7 +113,8 @@ The PyTorch TAC agent is designed for governance scenarios where:
 
 ```
 dotagents/
-├── pytorch_tac_advisor.py      # PyTorch TAC voting agent
+├── agents/                     # Agent implementations
+│   └── pytorch_tac_advisor.py  # PyTorch TAC voting agent
 ├── requirements.txt            # Dependencies
 ├── prompts/                    # Agent specifications
 │   └── pytorch/                # PyTorch TAC agent prompts
