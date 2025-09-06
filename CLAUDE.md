@@ -10,7 +10,7 @@ This is the **PyTorch TAC Voting Advisor Agent** - a strategic decision support 
 
 ### Core Components
 
-- **`pytorch_tac_advisor.py`** - Main application with three primary classes:
+- **`agents/pytorch_tac_advisor.py`** - Main application with three primary classes:
   - `GitHubAnalyzer` - Repository health metrics via GitHub API
   - `PyTorchEcosystemAnalyzer` - Competition and portfolio analysis
   - `PyTorchTACAdvisor` - Orchestrates analysis and generates recommendations
@@ -31,16 +31,16 @@ This is the **PyTorch TAC Voting Advisor Agent** - a strategic decision support 
 ### Running Analysis
 ```bash
 # Basic analysis
-python pytorch_tac_advisor.py "Project Name" "https://github.com/owner/repo"
+python agents/pytorch_tac_advisor.py "Project Name" "https://github.com/owner/repo"
 
 # With description and context
-python pytorch_tac_advisor.py "ML Inference Engine" "https://github.com/example/engine" \
+python agents/pytorch_tac_advisor.py "ML Inference Engine" "https://github.com/example/engine" \
   --description "Fast PyTorch model serving for production" \
   --context "Vote deadline: 2025-01-15"
 
 # With GitHub token for higher API limits
 export GITHUB_TOKEN="your_token"
-python pytorch_tac_advisor.py "Project Name" "https://github.com/owner/repo"
+python agents/pytorch_tac_advisor.py "Project Name" "https://github.com/owner/repo"
 ```
 
 ### Environment Setup
@@ -55,7 +55,7 @@ uv pip install -r requirements.txt
 ### Testing
 ```bash
 # Test with PyTorch repository (known good case)
-python pytorch_tac_advisor.py "Test Project" "https://github.com/pytorch/pytorch"
+python agents/pytorch_tac_advisor.py "Test Project" "https://github.com/pytorch/pytorch"
 ```
 
 ## Key Features
@@ -111,7 +111,8 @@ python pytorch_tac_advisor.py "Test Project" "https://github.com/pytorch/pytorch
 
 ```
 dotagents/
-├── pytorch_tac_advisor.py      # Main application
+├── agents/                     # Agent implementations
+│   └── pytorch_tac_advisor.py  # Main application
 ├── requirements.txt            # Dependencies  
 ├── README.md                   # Usage documentation
 ├── prompts/pytorch/            # Agent specifications

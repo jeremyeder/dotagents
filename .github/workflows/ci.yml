@@ -29,15 +29,15 @@ jobs:
     
     - name: Code formatting check
       run: |
-        black --check pytorch_tac_advisor.py
-        isort --check-only pytorch_tac_advisor.py
+        black --check agents/pytorch_tac_advisor.py
+        isort --check-only agents/pytorch_tac_advisor.py
     
     - name: Lint with flake8
       run: |
-        flake8 pytorch_tac_advisor.py --count --select=E9,F63,F7,F82 --show-source --statistics
-        flake8 pytorch_tac_advisor.py --count --exit-zero --max-complexity=10 --max-line-length=88 --statistics
+        flake8 agents/pytorch_tac_advisor.py --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 agents/pytorch_tac_advisor.py --count --exit-zero --max-complexity=10 --max-line-length=88 --statistics
     
     - name: Test basic functionality
       run: |
-        python -c "import pytorch_tac_advisor; print('Import successful')"
-        python pytorch_tac_advisor.py --help
+        python -c "import sys; sys.path.append('agents'); import pytorch_tac_advisor; print('Import successful')"
+        python agents/pytorch_tac_advisor.py --help

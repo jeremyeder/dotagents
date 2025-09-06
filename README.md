@@ -25,12 +25,12 @@ This agent provides research-backed decision support for PyTorch ecosystem votes
 
 ### Basic Analysis
 ```bash
-python pytorch_tac_advisor.py "Project Name" "https://github.com/owner/repo"
+python agents/pytorch_tac_advisor.py "Project Name" "https://github.com/owner/repo"
 ```
 
 ### With Description and Context
 ```bash
-python pytorch_tac_advisor.py "ML Inference Engine" "https://github.com/example/engine" \
+python agents/pytorch_tac_advisor.py "ML Inference Engine" "https://github.com/example/engine" \
   --description "Fast PyTorch model serving for production" \
   --context "Vote deadline: 2025-01-15"
 ```
@@ -38,7 +38,7 @@ python pytorch_tac_advisor.py "ML Inference Engine" "https://github.com/example/
 ### With GitHub Token (for higher API limits)
 ```bash
 export GITHUB_TOKEN="your_github_token"
-python pytorch_tac_advisor.py "Project Name" "https://github.com/owner/repo"
+python agents/pytorch_tac_advisor.py "Project Name" "https://github.com/owner/repo"
 ```
 
 ## Installation
