@@ -18,7 +18,6 @@ This repository contains AI agents designed to provide research-backed decision 
 | Agent | Status | Analysis Type | Data Sources | Output Format | Decision Support | Time Sensitivity |
 |-------|--------|---------------|--------------|---------------|------------------|------------------|
 | PyTorch TAC Voting Advisor | ✅ Current | Governance | GitHub API, Project docs | Console + Markdown | APPROVE/REJECT/ABSTAIN | 7-day windows |
-| UX Design Collaborator | ✅ Current | Design Strategy | User research, Design systems | Console + Guidelines | Design Recommendations | Sprint cycles |
 | Competitive Intelligence Analyzer | 🔄 Planned | Market Analysis | Web scraping, Patents | Markdown + JSON | Threat Assessment | Weekly |
 | Project Health Evaluator | 🔄 Planned | Technical Risk | GitHub API, Dependencies | Console + Markdown | Health Score + Risks | On-demand |
 | Technology Portfolio Advisor | ⏳ Future | Strategic Fit | Internal APIs, Market data | Executive Summary | Portfolio Alignment | Quarterly |
@@ -47,7 +46,7 @@ These agents are designed to work with [Claude Code](https://claude.ai/code) and
 
 1. **Copy agents to Claude Code directory:**
    ```bash
-   cp -r agents/* ~/.claude/agents/
+   cp -r prompts/* ~/.claude/agents/
    ```
 
 2. **Agent discovery:** Claude Code automatically discovers agents in the `~/.claude/agents/` directory
@@ -110,53 +109,17 @@ The PyTorch TAC agent is designed for governance scenarios where:
 - **Rich Console Output** - Formatted display with tables and panels
 - **Markdown Export** - Executive summary generation
 
-## UX Design Collaborator
-
-### Overview
-
-The UX Design Collaborator agent provides expert design guidance, wireframes, and user experience strategy for product features. It specializes in agile product development and ensures alignment with design systems and accessibility standards.
-
-### Core Capabilities
-
-- **Design Analysis** - Evaluate design requests and provide UX guidance
-- **Wireframe Guidance** - Generate wireframe recommendations for features
-- **Design System Alignment** - Ensure consistency with design patterns
-- **Accessibility Review** - WCAG compliance and inclusive design
-- **Agile Integration** - Design guidance that fits sprint cycles
-
-### Usage Examples
-
-```bash
-# Analyze a design request
-python agents/uxd/agent.py analyze "Design a dashboard for analytics data" --context "Enterprise SaaS platform"
-
-# Get wireframe guidance
-python agents/uxd/agent.py wireframe --feature "User onboarding flow"
-
-# Show help
-python agents/uxd/agent.py help
-```
-
-### Context
-
-The UX Design Collaborator agent is designed for scenarios where:
-- **Feature Design**: New features require UX guidance and design direction
-- **Sprint Planning**: Design validation needed for agile development cycles
-- **Accessibility Review**: Ensuring WCAG compliance and inclusive design
-- **Design System Evolution**: Maintaining consistency while identifying opportunities for improvement
-
 ## Project Structure
 
 ```
 dotagents/
 ├── agents/                     # Agent implementations
-│   ├── pytorch-tac/           # PyTorch TAC voting agent
-│   │   ├── prompt.md          # Agent specification
-│   │   └── agent.py           # Implementation
-│   └── uxd/                   # UX Design Collaborator agent
-│       ├── prompt.md          # Agent specification
-│       └── agent.py           # Implementation
+│   └── pytorch_tac_advisor.py  # PyTorch TAC voting agent
 ├── requirements.txt            # Dependencies
+├── prompts/                    # Agent specifications
+│   └── pytorch/                # PyTorch TAC agent prompts
+│       ├── pytorch_tac_voter.md
+│       └── vote.png
 ├── analysis/                   # Generated reports
 └── README.md                   # This file
 ```
@@ -165,38 +128,10 @@ dotagents/
 
 ### Adding New Agents
 
-1. Create agent-specific directory in `agents/` (e.g., `agents/my-agent/`)
-2. Create `prompt.md` with agent specification and usage examples
-3. Implement `agent.py` following the framework patterns
-4. Add CLI interface and documentation
-5. Update this README with agent details
-
-### Agent Structure
-
-Each agent follows a standardized structure:
-- **`prompt.md`**: Agent specification, usage examples, and prompt definition
-- **`agent.py`**: Python implementation with CLI interface and core functionality
-
-### Agent Validation
-
-All agents are validated using the built-in linter:
-
-```bash
-# Lint all agents
-python lint_agents.py
-
-# Lint specific agent
-python lint_agents.py --agent pytorch-tac
-
-# Auto-fix formatting issues
-python lint_agents.py --fix
-```
-
-The linter validates:
-- File structure and naming conventions
-- Prompt format and required metadata
-- Implementation patterns and CLI interfaces
-- Code quality (Black, isort, flake8)
+1. Create agent-specific directory in `prompts/`
+2. Implement agent class following the framework patterns
+3. Add CLI interface and documentation
+4. Update this README with agent details
 
 ### Environment Setup
 

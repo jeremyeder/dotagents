@@ -4,36 +4,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is the **dotagents** repository - a collection of specialized strategic agents for technical decision support and competitive analysis. The repository currently contains:
-
-1. **PyTorch TAC Voting Advisor Agent** - Strategic decision support tool for Jeremy Eder's role as PyTorch Technical Advisory Committee member representing IBM/Red Hat
-2. **UX Design Collaborator Agent** - Senior UX designer and user experience strategist for agile product development
+This is the **PyTorch TAC Voting Advisor Agent** - a strategic decision support tool for Jeremy Eder's role as PyTorch Technical Advisory Committee member representing IBM/Red Hat. The agent analyzes PyTorch ecosystem projects and generates executive summaries with voting recommendations considering competition, portfolio overlap, and project health.
 
 ## Architecture
 
-### Agent Structure
+### Core Components
 
-Each agent follows a standardized structure with two files:
-- **`prompt.md`** - Agent specification, usage examples, and prompt definition
-- **`agent.py`** - Python implementation with CLI interface and core functionality
-
-### PyTorch TAC Advisor (`agents/pytorch-tac/`)
-
-- **`agent.py`** - Main application with three primary classes:
+- **`agents/pytorch_tac_advisor.py`** - Main application with three primary classes:
   - `GitHubAnalyzer` - Repository health metrics via GitHub API
   - `PyTorchEcosystemAnalyzer` - Competition and portfolio analysis
   - `PyTorchTACAdvisor` - Orchestrates analysis and generates recommendations
-- **`prompt.md`** - Agent specification and requirements
 
-### UX Design Collaborator (`agents/uxd/`)
-
-- **`agent.py`** - UX design guidance implementation with:
-  - Design request analysis
-  - Wireframe guidance generation
-  - Accessibility and design system alignment
-- **`prompt.md`** - Agent specification and usage examples
-
-### Shared Resources
+- **`prompts/pytorch/`** - Contains:
+  - `pytorch_tac_voter.md` - Agent specification and requirements
+  - `vote.png` - Reference voting notification image
 
 - **`analysis/`** - Generated markdown reports for voting decisions
 
@@ -44,31 +28,19 @@ Each agent follows a standardized structure with two files:
 
 ## Common Development Commands
 
-### Running PyTorch TAC Analysis
+### Running Analysis
 ```bash
 # Basic analysis
-python agents/pytorch-tac/agent.py "Project Name" "https://github.com/owner/repo"
+python agents/pytorch_tac_advisor.py "Project Name" "https://github.com/owner/repo"
 
 # With description and context
-python agents/pytorch-tac/agent.py "ML Inference Engine" "https://github.com/example/engine" \
+python agents/pytorch_tac_advisor.py "ML Inference Engine" "https://github.com/example/engine" \
   --description "Fast PyTorch model serving for production" \
   --context "Vote deadline: 2025-01-15"
 
 # With GitHub token for higher API limits
 export GITHUB_TOKEN="your_token"
-python agents/pytorch-tac/agent.py "Project Name" "https://github.com/owner/repo"
-```
-
-### Running UX Design Collaborator
-```bash
-# Analyze a design request
-python agents/uxd/agent.py analyze "Design a dashboard for analytics data" --context "Enterprise SaaS platform"
-
-# Get wireframe guidance
-python agents/uxd/agent.py wireframe --feature "User onboarding flow"
-
-# Show help
-python agents/uxd/agent.py help
+python agents/pytorch_tac_advisor.py "Project Name" "https://github.com/owner/repo"
 ```
 
 ### Environment Setup
@@ -82,11 +54,8 @@ uv pip install -r requirements.txt
 
 ### Testing
 ```bash
-# Test PyTorch TAC agent with PyTorch repository (known good case)
-python agents/pytorch-tac/agent.py "Test Project" "https://github.com/pytorch/pytorch"
-
-# Test UX Design Collaborator agent
-python agents/uxd/agent.py help
+# Test with PyTorch repository (known good case)
+python agents/pytorch_tac_advisor.py "Test Project" "https://github.com/pytorch/pytorch"
 ```
 
 ## Key Features
