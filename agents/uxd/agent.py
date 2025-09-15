@@ -11,8 +11,8 @@ Author: Jeremy Eder, Distinguished Engineer, Red Hat
 
 import click
 from rich.console import Console
-from rich.panel import Panel
 from rich.markdown import Markdown
+from rich.panel import Panel
 
 console = Console()
 
@@ -106,10 +106,10 @@ class UXDesignCollaborator:
 
 
 @click.command()
-@click.argument('action', type=click.Choice(['analyze', 'wireframe', 'help']))
-@click.argument('request', required=False)
-@click.option('--context', '-c', help='Additional context for the design request')
-@click.option('--feature', '-f', help='Feature name for wireframe guidance')
+@click.argument("action", type=click.Choice(["analyze", "wireframe", "help"]))
+@click.argument("request", required=False)
+@click.option("--context", "-c", help="Additional context for the design request")
+@click.option("--feature", "-f", help="Feature name for wireframe guidance")
 def main(action: str, request: str = None, context: str = None, feature: str = None):
     """
     UX Design Collaborator Agent
@@ -134,9 +134,11 @@ def main(action: str, request: str = None, context: str = None, feature: str = N
 
     agent = UXDesignCollaborator()
 
-    if action == 'help':
-        console.print(Panel(
-            Markdown("""
+    if action == "help":
+        console.print(
+            Panel(
+                Markdown(
+                    """
 # UX Design Collaborator Agent
 
 ## Capabilities
@@ -158,36 +160,40 @@ def main(action: str, request: str = None, context: str = None, feature: str = N
 - Systems thinking for cohesive experiences
 - Technical collaboration with development teams
 - Iterative design and validation methodology
-"""),
-            title="🎨 UX Design Collaborator",
-            border_style="blue"
-        ))
+"""
+                ),
+                title="🎨 UX Design Collaborator",
+                border_style="blue",
+            )
+        )
         return
 
-    if action == 'analyze':
+    if action == "analyze":
         if not request:
             console.print("[red]Error: Request is required for analysis[/red]")
             return
 
         analysis = agent.analyze_design_request(request, context)
-        console.print(Panel(
-            Markdown(analysis),
-            title="🎨 UX Design Analysis",
-            border_style="blue"
-        ))
+        console.print(
+            Panel(
+                Markdown(analysis), title="🎨 UX Design Analysis", border_style="blue"
+            )
+        )
 
-    elif action == 'wireframe':
+    elif action == "wireframe":
         if not feature:
-            console.print("[red]Error: Feature name is required for wireframe guidance[/red]")
+            console.print(
+                "[red]Error: Feature name is required for wireframe guidance[/red]"
+            )
             return
 
         guidance = agent.generate_wireframe_guidance(feature)
-        console.print(Panel(
-            Markdown(guidance),
-            title="📐 Wireframe Guidance",
-            border_style="green"
-        ))
+        console.print(
+            Panel(
+                Markdown(guidance), title="📐 Wireframe Guidance", border_style="green"
+            )
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

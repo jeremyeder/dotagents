@@ -177,6 +177,27 @@ Each agent follows a standardized structure:
 - **`prompt.md`**: Agent specification, usage examples, and prompt definition
 - **`agent.py`**: Python implementation with CLI interface and core functionality
 
+### Agent Validation
+
+All agents are validated using the built-in linter:
+
+```bash
+# Lint all agents
+python lint_agents.py
+
+# Lint specific agent
+python lint_agents.py --agent pytorch-tac
+
+# Auto-fix formatting issues
+python lint_agents.py --fix
+```
+
+The linter validates:
+- File structure and naming conventions
+- Prompt format and required metadata
+- Implementation patterns and CLI interfaces
+- Code quality (Black, isort, flake8)
+
 ### Environment Setup
 
 Set `GITHUB_TOKEN` environment variable for enhanced API access:
