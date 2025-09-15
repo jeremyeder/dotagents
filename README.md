@@ -152,10 +152,18 @@ dotagents/
 ├── agents/                     # Agent implementations
 │   ├── pytorch-tac/           # PyTorch TAC voting agent
 │   │   ├── prompt.md          # Agent specification
-│   │   └── agent.py           # Implementation
+│   │   ├── agent.py           # Implementation
+│   │   └── vote.png           # Reference voting notification
 │   └── uxd/                   # UX Design Collaborator agent
 │       ├── prompt.md          # Agent specification
 │       └── agent.py           # Implementation
+├── templates/                  # Development templates
+│   ├── prompt.md              # Template for agent specifications
+│   └── agent.py               # Template for agent implementations
+├── .github/workflows/          # CI/CD configuration
+│   └── ci.yml                 # Automated testing and validation
+├── lint_agents.py              # Agent validation and linting tool
+├── AGENT_INTERFACE.md          # Comprehensive interface specification
 ├── requirements.txt            # Dependencies
 ├── analysis/                   # Generated reports
 └── README.md                   # This file
@@ -163,19 +171,93 @@ dotagents/
 
 ## Development
 
-### Adding New Agents
+### Quick Start for New Agents
 
-1. Create agent-specific directory in `agents/` (e.g., `agents/my-agent/`)
-2. Create `prompt.md` with agent specification and usage examples
-3. Implement `agent.py` following the framework patterns
-4. Add CLI interface and documentation
-5. Update this README with agent details
+1. **Copy Templates**: Use provided templates as starting point
+   ```bash
+   mkdir agents/my-agent
+   cp templates/prompt.md agents/my-agent/
+   cp templates/agent.py agents/my-agent/
+   ```
+
+2. **Customize Specification**: Edit `prompt.md` with agent details
+   - Update metadata (name, model, description)
+   - Define usage examples with context/user/assistant/commentary format
+   - Specify agent behavior and capabilities
+
+3. **Implement Functionality**: Edit `agent.py` with core logic
+   - Follow Click CLI framework patterns
+   - Use Rich console for formatted output
+   - Implement help functionality and error handling
+
+4. **Validate Compliance**: Run linter before submitting
+   ```bash
+   python lint_agents.py --agent my-agent --fix
+   ```
+
+5. **Test Functionality**: Ensure agent works correctly
+   ```bash
+   python agents/my-agent/agent.py --help
+   ```
+
+### Comprehensive Documentation
+
+For detailed interface specifications, development patterns, and validation requirements, see:
+
+**📚 [AGENT_INTERFACE.md](AGENT_INTERFACE.md)** - Complete developer guide including:
+- Standardized file structure requirements
+- Prompt format specification with examples
+- Implementation patterns and CLI standards
+- Code quality requirements and validation rules
+- Development workflow and best practices
+
+### Adding New Agents (Detailed Process)
+
+1. **Plan Agent Design**: Define purpose, capabilities, and usage scenarios
+2. **Create Directory Structure**: Use templates as foundation
+3. **Implement Specification**: Follow AGENT_INTERFACE.md requirements
+4. **Validate Implementation**: Pass all linter checks
+5. **Test Functionality**: Verify CLI interface and core features
+6. **Submit for Review**: CI will automatically validate compliance
+7. **Update Documentation**: Add agent to portfolio table above
 
 ### Agent Structure
 
 Each agent follows a standardized structure:
 - **`prompt.md`**: Agent specification, usage examples, and prompt definition
 - **`agent.py`**: Python implementation with CLI interface and core functionality
+
+### Agent Linter Tool
+
+The repository includes a comprehensive linting tool (`lint_agents.py`) that validates all aspects of agent compliance:
+
+#### **Validation Categories**
+- **File Structure**: Directory naming, required files, resource validation
+- **Prompt Format**: Metadata completeness, usage examples, agent specification
+- **Implementation**: Python patterns, CLI framework, entry points, docstrings
+- **Code Quality**: Black formatting, isort imports, flake8 linting, syntax validation
+
+#### **Linter Commands**
+```bash
+# Validate all agents with detailed results table
+python lint_agents.py
+
+# Validate specific agent with focused output
+python lint_agents.py --agent pytorch-tac
+
+# Auto-fix formatting issues (Black + isort)
+python lint_agents.py --fix
+
+# Verbose output for debugging
+python lint_agents.py --verbose
+```
+
+#### **Linter Output**
+The linter provides rich console output with:
+- ✅/❌ Status indicators for each validation category
+- Detailed error messages with fix suggestions
+- Summary table showing all agents' compliance status
+- Auto-fix capability for formatting issues
 
 ### Agent Validation
 
@@ -197,6 +279,66 @@ The linter validates:
 - Prompt format and required metadata
 - Implementation patterns and CLI interfaces
 - Code quality (Black, isort, flake8)
+
+### CI/CD Integration
+
+All agents are automatically validated through GitHub Actions CI/CD pipeline:
+
+#### **Automated Validation**
+- **Agent Linter**: All agents validated on every PR and push
+- **Code Quality**: Black formatting, isort imports, flake8 linting
+- **Functional Testing**: Agent help commands tested automatically
+- **Quality Gates**: Non-compliant agents cannot be merged
+
+#### **CI Workflow**
+The CI pipeline runs these checks automatically:
+
+```yaml
+# Agent validation
+python lint_agents.py
+
+# Code formatting
+find agents/ -name "*.py" -exec black --check {} +
+find agents/ -name "*.py" -exec isort --check-only {} +
+
+# Linting
+find agents/ -name "*.py" -print0 | xargs -0 flake8 --max-line-length=88
+
+# Functional testing
+python agents/pytorch-tac/agent.py --help
+python agents/uxd/agent.py help
+```
+
+#### **Development Benefits**
+- **Quality Assurance**: Automated prevention of regressions
+- **Consistency**: All agents follow standardized patterns
+- **Confidence**: Changes validated before merging
+- **Documentation**: CI failures provide clear guidance
+
+### Templates for New Development
+
+Use the provided templates to quickly create new agents:
+
+#### **Starting a New Agent**
+```bash
+# Copy templates to new agent directory
+mkdir agents/my-new-agent
+cp templates/prompt.md agents/my-new-agent/
+cp templates/agent.py agents/my-new-agent/
+
+# Customize the templates
+# Edit agents/my-new-agent/prompt.md - Update metadata and examples
+# Edit agents/my-new-agent/agent.py - Implement functionality
+
+# Validate your agent
+python lint_agents.py --agent my-new-agent
+```
+
+#### **Template Features**
+- **Structured Prompt**: Pre-formatted with required sections
+- **Boilerplate Code**: Click CLI framework and Rich console output
+- **Best Practices**: Follows established patterns and conventions
+- **Validation Ready**: Passes all linter checks out of the box
 
 ### Environment Setup
 
