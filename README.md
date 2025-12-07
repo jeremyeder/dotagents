@@ -1,5 +1,18 @@
 # dotagents
 
+> **⚠️ DEPRECATED - Repository Archived**
+>
+> This repository has been consolidated into [dotclaude](https://github.com/jeremyeder/dotclaude).
+>
+> **All agents and slash commands have moved to dotclaude:**
+> - Agents → [dotclaude/agents/](https://github.com/jeremyeder/dotclaude/tree/main/agents)
+> - Slash Commands → [dotclaude/.claude/commands/](https://github.com/jeremyeder/dotclaude/tree/main/.claude/commands)
+> - Plus new: [Plugins](https://github.com/jeremyeder/dotclaude/tree/main/plugins) and [Skills](https://github.com/jeremyeder/dotclaude/tree/main/skills) marketplaces
+>
+> **Please use [dotclaude](https://github.com/jeremyeder/dotclaude) for all Claude Code configuration, agents, and extensions.**
+>
+> ---
+
 A collection of specialized strategic agents for technical decision support and competitive analysis.
 
 ## Overview
